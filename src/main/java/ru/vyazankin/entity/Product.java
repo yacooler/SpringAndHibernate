@@ -1,7 +1,9 @@
 package ru.vyazankin.entity;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "product")
@@ -17,15 +19,15 @@ public class Product implements Serializable{
     @Column(name = "title")
     private String title;
 
-    @Column(name = "price")
-    private Integer price;
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    List<Price> productPriceList;
+
 
     public Product() {
     }
 
-    public Product(String title, Integer price) {
+    public Product(String title) {
         this.title = title;
-        this.price = price;
     }
 
     public Long getId() {
@@ -44,12 +46,12 @@ public class Product implements Serializable{
         this.title = title;
     }
 
-    public Integer getPrice() {
-        return price;
+    public List<Price> getProductPriceList() {
+        return productPriceList;
     }
 
-    public void setPrice(Integer price) {
-        this.price = price;
+    public void setProductPriceList(List<Price> productPriceList) {
+        this.productPriceList = productPriceList;
     }
 
     @Override
@@ -57,7 +59,7 @@ public class Product implements Serializable{
         final StringBuilder sb = new StringBuilder("Product{");
         sb.append("id=").append(id);
         sb.append(", title='").append(title).append('\'');
-        sb.append(", price=").append(price);
+        sb.append(", priceList=").append(productPriceList);
         sb.append('}');
         return sb.toString();
     }

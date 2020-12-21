@@ -14,11 +14,12 @@ public class SpringConfig {
     @Bean
     @Scope("singleton")
     public SessionFactory sessionFactoryBean(){
-        System.out.println("sessionFactoryBean");
         return new org.hibernate.cfg.Configuration()
                 .configure("hibernate.cfg.xml")
                 .buildSessionFactory();
     }
+
+
 }
 
 

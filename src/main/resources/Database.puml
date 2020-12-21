@@ -1,0 +1,35 @@
+@startuml
+
+class Product{
+    id bigint identity not null
+    --
+    title varchar(255) not null
+}
+
+class Price{
+    id bigint identity not null
+    --
+    price_date date not null
+    product_id bigint not null
+    price int not null
+}
+
+class Custom{
+    price_id bigint not null
+    customer_id bigint not null
+}
+
+class Customer{
+    id bigint identity not null
+    --
+    name varchar(255) not null
+}
+
+
+
+Product <|-- Price
+Price <|-- Custom
+Customer <|-- Custom
+
+
+@enduml
